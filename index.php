@@ -71,11 +71,17 @@ if (!isset($_SESSION['customer'])) {
                     </div>
                 </div>
             </nav>
-            <br><br><br>
+            <br><br><br><br><br>
             <div class="innershape1">
                 <div class="homeshape1">
-    
                 </div>
+            </div>
+            <div class="innershape2">
+                <div class="homeshape2">
+                </div>
+            </div>
+            <div class="picture1pos">
+                <img class="imageintro" src="car.png" alt="" srcset="">
             </div>
         </div>
     </div>

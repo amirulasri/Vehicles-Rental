@@ -2,11 +2,11 @@
   padding-left: 70px;
 }
 
-#products{
+#products {
   transition: .3s ease-in-out;
 }
 
-.titleposition{
+.titleposition {
   padding-left: 70px;
   padding-top: 70px;
   transition: .3s ease-in-out;
@@ -21,15 +21,42 @@
 }
 
 .homeshape1 {
-  border-bottom: 500px solid #555;
-	border-left: 200px solid transparent;
-	transform: scale(1, -1);
-	height: 0;
-	width: 60%;
+  border-bottom: 500px solid rgb(0, 46, 105);
+  border-left: 182px solid transparent;
+  transform: scale(1, -1);
+  height: 0;
+  width: 60%;
   float: right;
+  position: relative;
+  top: 40px;
 }
 
 .innershape1 {
   width: 100%;
   position: absolute;
+}
+
+.homeshape2 {
+  width: 3px;
+  height: 590px;
+  transform: skew(20deg);
+  background: rgb(0, 46, 105);
+  left: 40px;
+  position: absolute;
+}
+
+.innershape2 {
+  width: 10px;
+  position: absolute;
+  right: 60%;
+}
+
+.picture1pos {
+  position: absolute;
+  width: 100%;
+}
+
+.imageintro {
+  position: absolute;
+  right: 60%;
 }
