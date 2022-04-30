@@ -19,3 +19,17 @@
   z-index: 100;
   transition: 0.3s;
 }
+
+.homeshape1 {
+  border-bottom: 500px solid #555;
+	border-left: 200px solid transparent;
+	transform: scale(1, -1);
+	height: 0;
+	width: 60%;
+  float: right;
+}
+
+.innershape1 {
+  width: 100%;
+  position: absolute;
+}
