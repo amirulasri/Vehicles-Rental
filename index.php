@@ -30,15 +30,19 @@ if (!isset($_SESSION['customer'])) {
             display: inline-block;
         }
 
-        .spacers{
+        .spacers {
             padding-right: 40px;
+        }
+
+        .navbar{
+            height: auto;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="wrapper d-flex align-items-stretch">
+    <div>
 
         <!-- Page Content  -->
         <div id="content">
@@ -84,6 +88,33 @@ if (!isset($_SESSION['customer'])) {
                 <img class="imageintro" src="car.png" alt="" srcset="">
             </div>
             <h2 class="hometitlepos">Vehicles Rental</h2>
+            <div class="container">
+                <div class="formreg">
+                    <form action="registerprocess">
+                        <h1>Register & Order Now</h1>
+                        <div class="row row-cols-2">
+                            <div class="col">
+                                <label for="">IC Number</label>
+                                <input type="text" name="icnumber" id="" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label for="">Password</label>
+                                <input type="password" name="studpassword" id="" class="form-control">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col">
+                                <label for="">Email Address</label>
+                                <input type="email" name="studaddress" id="" class="form-control"><br>
+                                <label for="">Full Name</label>
+                                <input type="text" name="studname" id="" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <input type="text" name="license" id="" class="form-control"><br>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

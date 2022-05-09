@@ -61,11 +61,15 @@
   right: 60%;
 }
 
-.hometitlepos{
+.hometitlepos {
   position: absolute;
   left: 40%;
   top: 300px;
   padding-left: 100px;
   color: white;
   font-size: 50px;
+}
+
+.formreg {
+  padding-top: 700px;
 }
