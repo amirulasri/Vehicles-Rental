@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
-$dbusername = "skproject";
-$dbpass = "P]8zn5>'5@VQZS4u";
+$dbusername = "sabrina";
+$dbpass = "sabrina1104";
 $dbname = "carrental";
 
 $conn = mysqli_connect($host, $dbusername, $dbpass, $dbname);

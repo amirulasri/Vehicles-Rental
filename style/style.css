@@ -58,16 +58,18 @@
 
 .imageintro {
   position: absolute;
-  right: 60%;
+  right: 44%;
+  top: 62px;
 }
 
 .hometitlepos {
   position: absolute;
   left: 40%;
-  top: 300px;
-  padding-left: 100px;
+  top: 386px;
+  padding-left: 206px;
   color: white;
-  font-size: 50px;
+  font-size: 59px;
+  font-family:initial;
 }
 
 .formreg {

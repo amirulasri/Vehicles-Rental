@@ -61,7 +61,7 @@ if (!isset($_SESSION['customer'])) {
                                 <a class="nav-link" href="#">Info</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Booking</a>
+                                <a class="nav-link" href="booking.php">Booking</a>
                             </li>
                             <li class="nav-item spacers">
                                 <a class="nav-link" href="#">Log Out</a>
@@ -85,9 +85,9 @@ if (!isset($_SESSION['customer'])) {
                 </div>
             </div>
             <div class="picture1pos">
-                <img class="imageintro" src="car.png" alt="" srcset="">
+                <img class="imageintro" src="car2.png" alt="" srcset="" width="800">
             </div>
-            <h2 class="hometitlepos">Vehicles Rental</h2>
+            <h2 class="hometitlepos">Vehicles Rental System</h2>
             <div class="container">
                 <div class="formreg">
                     <form action="registerprocess">
@@ -107,11 +107,31 @@ if (!isset($_SESSION['customer'])) {
                                 <label for="">Email Address</label>
                                 <input type="email" name="studaddress" id="" class="form-control"><br>
                                 <label for="">Full Name</label>
-                                <input type="text" name="studname" id="" class="form-control">
+                                <input type="text" name="studname" id="" class="form-control"><br>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="">License</label>
+                                <input type="license" name="studaddress" id="" class="from-control"><br>
+                                
+                            </div>
+                            <div class="col">
+                                <label for="">Phone Number </label>
+                                <input type="phone" name="studaddress" id="" class="from-control">
+                                
+                            </div>
+
+                        </div>
+
+                        <div class="row"><br>
+                            <div class="col"><br>
+                                <input type="submit" value="SUBMIT" />
+                            </div>
+                    
+                        </div>
+                        <br>
                         
-                        <input type="text" name="license" id="" class="form-control"><br>
                     </form>
                 </div>
             </div>

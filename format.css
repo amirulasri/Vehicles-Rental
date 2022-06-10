@@ -1,0 +1,72 @@
+.submit
+{
+float: right;
+}
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table tr td:empty {
+    width: 50px;
+}
+
+table tr td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  input.pwsd, .address , .name {
+      width:400px;
+  }
+
+  .table ,tr
+  {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid rgb(137, 156, 238);
+    
+  }
+  
+  .top
+  {
+    background-color: rgb(24, 24, 112);
+    color: white;
+  }
+
+  .subm{
+    border-radius:20px ;
+    margin-left:10px ;
+    background-color: rgb(182, 182, 216);
+  }
+
+  .sub{
+    border-radius:20px ;
+    margin-left:10px ;
+    background-color: rgb(10, 10, 129, 0.781);
+  }
+
+    .content{
+     margin-left: 20%;
+}
+
+    .vl {
+    border-left: 6px solid rgb(24, 24, 112) ;
+    height: 500px;
+}
+
+    hr.new5 {
+    border: 10px solid green;
+    border-radius: 5px;
+}
+#content
+{
+    float: right;
+    width: 79%;
+} 
+.kotak_login{
+  width: 350px;
+  background: white;
+  margin: 80px auto;
+  padding: 30px 20px;
+}
