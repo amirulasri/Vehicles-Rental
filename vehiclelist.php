@@ -34,7 +34,7 @@ if (!isset($_SESSION['customer'])) {
             padding-right: 40px;
         }
 
-        .navbar{
+        .navbar {
             height: auto;
         }
     </style>
@@ -55,10 +55,10 @@ if (!isset($_SESSION['customer'])) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item spacers">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <a class="nav-link" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Info</a>
+                                <a class="nav-link active" href="#">Info</a>
                             </li>
                             <li class="nav-item spacers">
                                 <a class="nav-link" href="booking.php">Booking</a>
@@ -76,66 +76,57 @@ if (!isset($_SESSION['customer'])) {
                 </div>
             </nav>
             <br><br><br><br><br>
-            <div class="innershape1">
-                <div class="homeshape1">
-                </div>
-            </div>
-            <div class="innershape2">
-                <div class="homeshape2">
-                </div>
-            </div>
-            <div class="picture1pos">
-                <img class="imageintro" src="car2.png" alt="" srcset="" width="800">
-            </div>
-            <h2 class="hometitlepos">Vehicles Rental System</h2>
             <div class="container">
-                <div class="formreg">
-                    <form action="registerprocess" method="POST">
-                        <h1>Register & Order Now</h1>
-                        <div class="row row-cols-2">
-                            <div class="col">
-                                <label for="">IC Number</label>
-                                <input type="text" name="icnumber" id="" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label for="">Password</label>
-                                <input type="password" name="studpassword" id="" class="form-control" required>
-                            </div>
-                        </div><br>
-                        <div class="row">
-                            <div class="col">
-                                <label for="">Email Address</label>
-                                <input type="email" name="studemail" id="" class="form-control" required><br>
-                                <label for="">Full Name</label>
-                                <input type="text" name="studname" id="" class="form-control" required><br>
+                <div class="carcentercatalog">
+                    <div class="carcatelog">
+                        <div class="carcontent">
+                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
+                            <h5>CAR NAME</h5>
+                            <div class="cardetail">
+                                <p>Details: ok ok</p>
+                                <p>Details: ok ok</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="">License</label>
-                                <input type="license" name="studlicense" id="" class="form-control" required><br>
-                                
+                        <div class="pricedisplayouter">
+                            <div class="pricedisplay">
+                                <div>RM 399</div>
                             </div>
-                            <div class="col">
-                                <label for="">Phone Number</label>
-                                <input type="phone" name="studphoneno" id="" class="form-control" required>
-                                
-                            </div>
-
+                        </div>
+                    </div>
+                    <div class="carcatelog">
+                        <div class="carcontent">
+                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
+                            <h5>CAR NAME</h5>
+                            <p>Details: ok ok</p>
                         </div>
 
-                        <div class="row"><br>
-                            <div class="col"><br>
-                                <input type="submit" name="submitregister" class="btn btn-primary" value="SUBMIT" />
-                            </div>
-                    
+                    </div>
+                    <div class="carcatelog">
+                        <div class="carcontent">
+                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
+                            <h5>CAR NAME</h5>
+                            <p>Details: ok ok</p>
                         </div>
-                        <br>
-                        
-                    </form>
+
+                    </div>
+                    <div class="carcatelog">
+                        <div class="carcontent">
+                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
+                            <h5>CAR NAME</h5>
+                            <p>Details: ok ok</p>
+                        </div>
+
+                    </div>
+                    <div class="carcatelog">
+                        <div class="carcontent">
+                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
+                            <h5>CAR NAME</h5>
+                            <p>Details: ok ok</p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <br><br><br>
         </div>
     </div>
 

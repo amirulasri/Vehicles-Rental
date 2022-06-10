@@ -10,7 +10,9 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/style.css">
+    <script src="jquery/jquery.js"></script>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <style>
         .navbar {
             height: auto;
@@ -31,18 +33,34 @@
         <div class="kotak-login2">
             <h2 style="margin: 0;">Login</h2>
             <br>
-            <form id="mylogin" name="mylogin" method="post" action="">
+            <?php
+            $info = "";
+            if (isset($_GET['log'])) {
+                $info = $_GET['log'];
+            }
+            if ($info == 1) {
+                echo "<div class='alert alert-danger fade show' role='alert'>
+                         Login failed. Try again
+                      </div>";
+            }
+            if ($info == 2) {
+                echo "<div class='alert alert-success fade show' role='alert'>
+                         Register successfully. Login to continue
+                      </div>";
+            }
+            ?>
+            <form id="mylogin" name="mylogin" method="post" action="loginstudentprocess.php">
                 <div class="row">
                     <div class="col">
                         IC Number :
-                        <input type="text" class="form-control" name="ic" placeholder="Enter IC Number">
+                        <input type="text" class="form-control" name="ic" placeholder="Enter IC Number" required>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col">
                         Password :
-                        <input type="text" name="pwd" class="form-control" placeholder="Enter Password">
+                        <input type="text" name="pwd" class="form-control" placeholder="Enter Password" required>
                     </div>
                 </div>
                 <div class="row" style="padding-bottom: 5px;">
@@ -54,8 +72,8 @@
                     <div class="col" style="text-align: left;">
                         <input type="button" class="btn btn-primary" value="ADMIN">
                     </div>
-                    <div class="col" style="text-align: right;">    
-                        <input type="submit" class="btn btn-primary" value="REGISTER">
+                    <div class="col" style="text-align: right;">
+                        <input type="button" class="btn btn-primary" value="REGISTER">
                     </div>
                 </div>
                 <br>
@@ -85,6 +103,11 @@
             min-height: 350px;
         }
     </style>
+    <script>
+        $(".alert").delay(5000).slideUp(200, function() {
+            $(this).alert('close');
+        });
+    </script>
 
 </body>
 

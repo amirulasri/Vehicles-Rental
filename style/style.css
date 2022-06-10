@@ -75,3 +75,49 @@
 .formreg {
   padding-top: 700px;
 }
+
+.carcatelog{
+  background-color: rgb(162, 255, 250);
+  min-width: 304px;
+  border-radius: 10px;
+  height: 390px;
+  display: inline;
+  margin: 10px;
+}
+
+.carcontent{
+  padding: 15px;
+}
+
+.carimg {
+  object-fit: cover;
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+}
+
+.carcentercatalog {
+  width:100%;
+  display: flex;
+  overflow: auto;
+  height: 450px;
+}
+
+.pricedisplay{
+  background-color: #ffdbbd;
+  display: inline;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100px;
+  text-align: center;
+}
+
+.pricedisplayouter{
+  display: flex;
+  justify-content: center;
+  padding-top: 65px;
+}
+
+.cardetail{
+  height: 33px;
+}
