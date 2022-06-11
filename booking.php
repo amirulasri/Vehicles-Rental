@@ -2,7 +2,7 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    //echo "NO SESSION";
+    die("NO SESSION");
     //die(header('location: login'));
 }
 $plateno = "";
@@ -109,7 +109,7 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
             <center>
                 <h1>Booking</h1>
                 <hr>
-                <form>
+                <form id="bookform" action="bookprocess.php" method="POST">
                     <table>
                         <tr>
                             <td>TYPE VEHICLE : </td>
@@ -132,7 +132,7 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
                             if (isset($_GET['plateno'])) {
                             ?>
                                 <td colspan="2" align="right">
-                                    <h4 id="pricedisplay">Total: RM<?php echo $priceperhour ?></h4><input type="submit" name="submit" class="btn btn-primary" value="BOOK">
+                                    <h4 id="pricedisplay">Total: RM<?php echo $priceperhour ?></h4><input type="submit" name="booksubmit" class="btn btn-primary" value="BOOK">
                                 </td>
                             <?php } ?>
                         </tr>
@@ -155,28 +155,18 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
             padding: 5px;
         }
     </style>
-    <!-- Modal vehicle SELCTOR-->
-    <div class="modal fade" id="vehiclemodalselctor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">All Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div id="vehiclemodalcontent">
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
+        let totalprice = <?php echo $priceperhour ?>;
+        let hours = 1;
+        let startDate = "<?php echo date('Y-m-d') ?>";
         function getPrice() {
-            var startDate = document.getElementById("datestart").value;
-            var hours = document.getElementById("hours").value;
-            var endDate = moment(startDate, 'YYYY-MM-DD').add(hours, 'hours').format('HH:mm');
+            startDate = document.getElementById("datestart").value;
+            hours = document.getElementById("hours").value;
+            let endDate = moment(startDate, 'YYYY-MM-DD').add(hours, 'hours').format('HH:mm');
 
             if (hours.length != 0) {
                 var pricecar = <?php echo $priceperhour ?>;
-                var totalprice = parseInt(hours) * parseFloat(pricecar);
+                totalprice = parseInt(hours) * parseFloat(pricecar);
                 document.getElementById("pricedisplay").innerHTML = "Total: RM" + totalprice.toFixed(2);
             }
         }
@@ -184,23 +174,6 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
         var vehiclemodalselctor = new bootstrap.Modal(document.getElementById('vehiclemodalselctor'), {
             keyboard: false
         })
-
-        function vehiclemodalopener(vehicleid) {
-            if (vehicleid.length == 0) {
-                document.getElementById("vehiclemodalcontent").innerHTML = "";
-                return;
-            } else {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("vehiclemodalcontent").innerHTML = this.responseText;
-                    }
-                };
-                xmlhttp.open("GET", "ajaxmodalbookconfirm.php?vehicleid=" + vehicleid, true);
-                xmlhttp.send();
-            }
-            vehiclemodalselctor.toggle();
-        }
     </script>
 </body>
 

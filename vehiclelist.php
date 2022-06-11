@@ -130,6 +130,19 @@ if (!isset($_SESSION['customer'])) {
             </div>
         </div>
     </div>
+    <!-- Modal vehicle RECEIPT-->
+    <div class="modal fade" id="vehiclemodalreceipt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">All Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="vehiclereceiptcontent">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         var vehiclemodalselctor = new bootstrap.Modal(document.getElementById('vehiclemodalselctor'), {
@@ -148,6 +161,35 @@ if (!isset($_SESSION['customer'])) {
                     }
                 };
                 xmlhttp.open("GET", "ajaxmodalvehicleselect.php?vehicleid=" + vehicleid, true);
+                xmlhttp.send();
+            }
+            vehiclemodalselctor.toggle();
+        }
+
+        <?php
+        if(isset($_GET['book'])){
+            $idbook = $_GET['book'];
+            $querycheckbook = mysqli_query($conn, "SELECT * FROM booking WHERE idbook = '$idbook'");
+            if(mysqli_num_rows($querycheckbook) > 0){
+                ?>
+                vehiclereceiptopener(<?php echo $idbook ?>);
+                <?php
+            }
+        }
+        ?>
+
+        function vehiclereceiptopener(idbook) {
+            if (idbook.length == 0) {
+                document.getElementById("vehiclereceiptcontent").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("vehiclereceiptcontent").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajaxmodalbookreceipt.php?idbook=" + idbook, true);
                 xmlhttp.send();
             }
             vehiclemodalselctor.toggle();
