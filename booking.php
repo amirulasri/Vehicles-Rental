@@ -7,9 +7,24 @@ if (!isset($_SESSION['customer'])) {
 }
 $plateno = "";
 $type = "";
-if(isset($_GET['plateno']) && isset($_GET['type'])){
+if (isset($_GET['plateno']) && isset($_GET['type'])) {
     $plateno = $_GET['plateno'];
     $type = $_GET['type'];
+
+    $queryvehicle = mysqli_query($conn, "SELECT * FROM vehicles WHERE plateno='$plateno'");
+    if (mysqli_num_rows($queryvehicle) > 0) {
+        $getvehicledata = mysqli_fetch_array($queryvehicle);
+
+        $plateno = $getvehicledata['plateno'];
+        $model = $getvehicledata['model'];
+        $color = $getvehicledata['color'];
+        $type = $getvehicledata['type'];
+        $priceperhour = $getvehicledata['priceperhour'];
+        $imagepath = $getvehicledata['imagepath'];
+        $adminvehiclemanager = $getvehicledata['adminuser'];
+    } else {
+        die(header('location: booking.php'));
+    }
 }
 ?>
 
@@ -17,7 +32,7 @@ if(isset($_GET['plateno']) && isset($_GET['type'])){
 <html lang="en">
 
 <head>
-    <title>Car Rental</title>
+    <title>Vehicle Rental</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -26,6 +41,11 @@ if(isset($_GET['plateno']) && isset($_GET['type'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="js/moment.js"></script>
+    <script src="jquery/jquery.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
     <style>
         .spacercard {
             padding: 10px;
@@ -38,6 +58,14 @@ if(isset($_GET['plateno']) && isset($_GET['type'])){
 
         .navbar {
             height: auto;
+        }
+
+        body {
+            background: url('loginbg.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
         }
     </style>
 </head>
@@ -96,14 +124,16 @@ if(isset($_GET['plateno']) && isset($_GET['type'])){
                             <td>HOUR : </td>
                         </tr>
                         <tr>
-                            <td><input type="date" name="date" class="form-control"></td>
-                            <td><input type="number" min="1" name="hour" class="form-control"></td>
+                            <td><input type="date" id="datestart" value="<?php echo date('Y-m-d') ?>" name="datestart" class="form-control"></td>
+                            <td><input type="number" onchange="getPrice()" oninput="getPrice()" id="hours" value="1" min="1" name="hour" class="form-control"></td>
                         </tr>
                         <tr>
                             <?php
                             if (isset($_GET['plateno'])) {
                             ?>
-                                <td colspan="2" align="right"><input type="submit" name="submit" class="btn btn-primary" value="SUBMIT"></td>
+                                <td colspan="2" align="right">
+                                    <h4 id="pricedisplay">Total: RM<?php echo $priceperhour ?></h4><input type="submit" name="submit" class="btn btn-primary" value="BOOK">
+                                </td>
                             <?php } ?>
                         </tr>
                     </table>
@@ -125,10 +155,53 @@ if(isset($_GET['plateno']) && isset($_GET['type'])){
             padding: 5px;
         }
     </style>
-    <script src="jquery/jquery.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <!-- Modal vehicle SELCTOR-->
+    <div class="modal fade" id="vehiclemodalselctor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">All Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="vehiclemodalcontent">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function getPrice() {
+            var startDate = document.getElementById("datestart").value;
+            var hours = document.getElementById("hours").value;
+            var endDate = moment(startDate, 'YYYY-MM-DD').add(hours, 'hours').format('HH:mm');
+
+            if (hours.length != 0) {
+                var pricecar = <?php echo $priceperhour ?>;
+                var totalprice = parseInt(hours) * parseFloat(pricecar);
+                document.getElementById("pricedisplay").innerHTML = "Total: RM" + totalprice.toFixed(2);
+            }
+        }
+
+        var vehiclemodalselctor = new bootstrap.Modal(document.getElementById('vehiclemodalselctor'), {
+            keyboard: false
+        })
+
+        function vehiclemodalopener(vehicleid) {
+            if (vehicleid.length == 0) {
+                document.getElementById("vehiclemodalcontent").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("vehiclemodalcontent").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajaxmodalbookconfirm.php?vehicleid=" + vehicleid, true);
+                xmlhttp.send();
+            }
+            vehiclemodalselctor.toggle();
+        }
+    </script>
 </body>
 
 </html>

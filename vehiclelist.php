@@ -11,7 +11,7 @@ if (!isset($_SESSION['customer'])) {
 <html lang="en">
 
 <head>
-    <title>Car Rental</title>
+    <title>Vehicle Rental</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -81,20 +81,20 @@ if (!isset($_SESSION['customer'])) {
             <br><br><br><br><br><br>
             <h1 class="titlecenter">VEHICLES</h1><br>
             <div class="container">
-                <div class="carcentercatalog">
+                <div class="vehiclecentercatalog">
                     <?php
-                    $querygetlistcar = mysqli_query($conn, "SELECT * FROM vehicles ORDER BY idvehicle DESC");
-                    while ($getcardata = mysqli_fetch_array($querygetlistcar)) {
+                    $querygetlistvehicle = mysqli_query($conn, "SELECT * FROM vehicles ORDER BY idvehicle DESC");
+                    while ($getvehicledata = mysqli_fetch_array($querygetlistvehicle)) {
                     ?>
-                        <div class="carcatelog" onclick="carmodalopener(<?php echo $getcardata['idvehicle'] ?>)">
-                            <div class="carcontent">
-                                <img class="carimg" src="<?php echo $getcardata['imagepath'] ?>" alt=""><br><br>
-                                <h5><?php echo $getcardata['model'] ?></h5>
-                                <div class="cardetail">
-                                    <p style="margin: 0;">Plate No: <?php echo $getcardata['plateno'] ?> <br> Color: <?php echo $getcardata['color']; ?> <br> Type: <?php echo $getcardata['type'] ?></p>
+                        <div class="vehiclecatelog" onclick="vehiclemodalopener(<?php echo $getvehicledata['idvehicle'] ?>)">
+                            <div class="vehiclecontent">
+                                <img class="vehicleimg" src="<?php echo $getvehicledata['imagepath'] ?>" alt=""><br><br>
+                                <h5><?php echo $getvehicledata['model'] ?></h5>
+                                <div class="vehicledetail">
+                                    <p style="margin: 0;">Plate No: <?php echo $getvehicledata['plateno'] ?> <br> Color: <?php echo $getvehicledata['color']; ?> <br> Type: <?php echo $getvehicledata['type'] ?></p>
                                     <?php
                                     //CHECK IF VEHICLE IN USE
-                                    $plateno = $getcardata['plateno'];
+                                    $plateno = $getvehicledata['plateno'];
                                     $querycheckavailable = mysqli_query($conn, "SELECT COUNT(plateno) FROM booking WHERE plateno='$plateno'");
                                     $bookcount = mysqli_fetch_array($querycheckavailable)[0];
                                     if($bookcount == 0){
@@ -108,7 +108,7 @@ if (!isset($_SESSION['customer'])) {
                             </div>
                             <div class="pricedisplayouter">
                                 <div class="pricedisplay">
-                                    <div><strong>RM <?php echo $getcardata['priceperhour'] ?> / hr</strong></div>
+                                    <div><strong>RM <?php echo $getvehicledata['priceperhour'] ?> / hr</strong></div>
                                 </div>
                             </div>
                         </div>
@@ -117,40 +117,40 @@ if (!isset($_SESSION['customer'])) {
             </div>
         </div>
     </div>
-    <!-- Modal Car SELCTOR-->
-    <div class="modal fade" id="carmodalselctor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal vehicle SELCTOR-->
+    <div class="modal fade" id="vehiclemodalselctor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Vehicle Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div id="carmodalcontent">
+                <div id="vehiclemodalcontent">
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        var carmodalselctor = new bootstrap.Modal(document.getElementById('carmodalselctor'), {
+        var vehiclemodalselctor = new bootstrap.Modal(document.getElementById('vehiclemodalselctor'), {
             keyboard: false
         })
 
-        function carmodalopener(carid) {
-            if (carid.length == 0) {
-                document.getElementById("carmodalcontent").innerHTML = "";
+        function vehiclemodalopener(vehicleid) {
+            if (vehicleid.length == 0) {
+                document.getElementById("vehiclemodalcontent").innerHTML = "";
                 return;
             } else {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("carmodalcontent").innerHTML = this.responseText;
+                        document.getElementById("vehiclemodalcontent").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "ajaxmodalcarselect.php?carid=" + carid, true);
+                xmlhttp.open("GET", "ajaxmodalvehicleselect.php?vehicleid=" + vehicleid, true);
                 xmlhttp.send();
             }
-            carmodalselctor.toggle();
+            vehiclemodalselctor.toggle();
         }
     </script>
 

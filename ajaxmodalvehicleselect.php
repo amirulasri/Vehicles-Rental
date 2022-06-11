@@ -5,22 +5,22 @@ if (!isset($_SESSION['customer'])) {
     die("NO SESSION");
     //die(header('location: login'));
 }
-if (isset($_REQUEST['carid'])) {
-    $carid = $_REQUEST['carid'];
-    $querygetlistcar = mysqli_query($conn, "SELECT * FROM vehicles WHERE idvehicle='$carid'");
-    $getcardata = mysqli_fetch_array($querygetlistcar);
+if (isset($_REQUEST['vehicleid'])) {
+    $vehicleid = $_REQUEST['vehicleid'];
+    $querygetlistvehicle = mysqli_query($conn, "SELECT * FROM vehicles WHERE idvehicle='$vehicleid'");
+    $getvehicledata = mysqli_fetch_array($querygetlistvehicle);
 
-    $plateno = $getcardata['plateno'];
-    $model = $getcardata['model'];
-    $color = $getcardata['color'];
-    $type = $getcardata['type'];
-    $priceperhour = $getcardata['priceperhour'];
-    $imagepath = $getcardata['imagepath'];
-    $admincarmanager = $getcardata['adminuser'];
+    $plateno = $getvehicledata['plateno'];
+    $model = $getvehicledata['model'];
+    $color = $getvehicledata['color'];
+    $type = $getvehicledata['type'];
+    $priceperhour = $getvehicledata['priceperhour'];
+    $imagepath = $getvehicledata['imagepath'];
+    $adminvehiclemanager = $getvehicledata['adminuser'];
 
 ?>
     <div class="modal-body">
-        <img class="carimgmodal" src="<?php echo $imagepath ?>" alt=""><br><br>
+        <img class="vehicleimgmodal" src="<?php echo $imagepath ?>" alt=""><br><br>
         <h4><?php echo $model ?></h4>
         <table class="table">
             <thead class="table-dark">
@@ -47,7 +47,7 @@ if (isset($_REQUEST['carid'])) {
                 </tr>
                 <tr>
                     <td>Owner:</td>
-                    <td><?php echo $admincarmanager ?></td>
+                    <td><?php echo $adminvehiclemanager ?></td>
                 </tr>
             </tbody>
         </table>

@@ -76,7 +76,7 @@
   padding-top: 700px;
 }
 
-.carcatelog{
+.vehiclecatelog{
   background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   min-width: 304px;
@@ -87,7 +87,7 @@
   transition: 0.2s;
 }
 
-.carcatelog:hover{
+.vehiclecatelog:hover{
   background-color: rgb(230, 230, 230);
   box-shadow: 0 4px 8px 0 rgba(0, 162, 255, 0.29), 0 10px 80px 0 rgba(0, 162, 255, 0.29);
   transition: 0.2s;
@@ -95,25 +95,25 @@
   min-width: 324px;
 }
 
-.carcontent{
+.vehiclecontent{
   padding: 15px;
 }
 
-.carimg {
+.vehicleimg {
   object-fit: cover;
   width: 100%;
   height: 180px;
   border-radius: 10px;
 }
 
-.carimgmodal {
+.vehicleimgmodal {
   object-fit: cover;
   width: 100%;
   height: 210px;
   border-radius: 10px;
 }
 
-.carcentercatalog {
+.vehiclecentercatalog {
   width:100%;
   display: flex;
   overflow: auto;
@@ -134,7 +134,7 @@
   justify-content: center;
 }
 
-.cardetail{
+.vehicledetail{
   height: 100px;
   overflow-x: auto;
 }
