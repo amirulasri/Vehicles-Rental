@@ -2,7 +2,7 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    //echo "NO SESSION";
+    die("NO SESSION");
     //die(header('location: login'));
 }
 ?>
@@ -20,6 +20,8 @@ if (!isset($_SESSION['customer'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <style>
         a {
             text-decoration: none;
@@ -75,60 +77,63 @@ if (!isset($_SESSION['customer'])) {
                     </div>
                 </div>
             </nav>
-            <br><br><br><br><br>
+            <div class="uppershape"></div>
+            <br><br><br><br><br><br>
+            <h1 class="titlecenter">VEHICLES</h1><br>
             <div class="container">
                 <div class="carcentercatalog">
-                    <div class="carcatelog">
-                        <div class="carcontent">
-                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
-                            <h5>CAR NAME</h5>
-                            <div class="cardetail">
-                                <p>Details: ok ok</p>
-                                <p>Details: ok ok</p>
+                    <?php
+                    $querygetlistcar = mysqli_query($conn, "SELECT * FROM vehicles ORDER BY idvehicle DESC");
+                    while ($getcardata = mysqli_fetch_array($querygetlistcar)) {
+                    ?>
+                        <div class="carcatelog" onclick="carmodalopener()">
+                            <div class="carcontent">
+                                <img class="carimg" src="<?php echo $getcardata['imagepath'] ?>" alt=""><br><br>
+                                <h5><?php echo $getcardata['model'] ?></h5>
+                                <div class="cardetail">
+                                    <p>Plate No: <?php echo $getcardata['plateno'] ?> <br> Color: <?php echo $getcardata['color']; ?> <br> Type: <?php echo $getcardata['type'] ?></p>
+                                </div>
+                            </div>
+                            <div class="pricedisplayouter">
+                                <div class="pricedisplay">
+                                    <div><strong>RM <?php echo $getcardata['priceperhour'] ?> / hr</strong></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="pricedisplayouter">
-                            <div class="pricedisplay">
-                                <div>RM 399</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carcatelog">
-                        <div class="carcontent">
-                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
-                            <h5>CAR NAME</h5>
-                            <p>Details: ok ok</p>
-                        </div>
-
-                    </div>
-                    <div class="carcatelog">
-                        <div class="carcontent">
-                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
-                            <h5>CAR NAME</h5>
-                            <p>Details: ok ok</p>
-                        </div>
-
-                    </div>
-                    <div class="carcatelog">
-                        <div class="carcontent">
-                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
-                            <h5>CAR NAME</h5>
-                            <p>Details: ok ok</p>
-                        </div>
-
-                    </div>
-                    <div class="carcatelog">
-                        <div class="carcontent">
-                            <img class="carimg" src="uploadedimg/car1.jpg" alt=""><br><br>
-                            <h5>CAR NAME</h5>
-                            <p>Details: ok ok</p>
-                        </div>
-
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal Car SELCTOR-->
+    <div class="modal fade" id="carmodalselctor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Car Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="carimgmodal" src="uploadedimg/car1.jpg" alt="">
+                    Details
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var carmodalselctor = new bootstrap.Modal(document.getElementById('carmodalselctor'), {
+            keyboard: false
+        })
+
+        function carmodalopener() {
+            carmodalselctor.toggle();
+        }
+    </script>
 
     <script src="jquery/jquery.js"></script>
     <script src="js/popper.js"></script>
