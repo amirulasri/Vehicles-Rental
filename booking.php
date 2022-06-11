@@ -5,6 +5,12 @@ if (!isset($_SESSION['customer'])) {
     //echo "NO SESSION";
     //die(header('location: login'));
 }
+$plateno = "";
+$type = "";
+if(isset($_GET['plateno']) && isset($_GET['type'])){
+    $plateno = $_GET['plateno'];
+    $type = $_GET['type'];
+}
 ?>
 
 <!doctype html>
@@ -21,10 +27,6 @@ if (!isset($_SESSION['customer'])) {
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <style>
-        a {
-            text-decoration: none;
-        }
-
         .spacercard {
             padding: 10px;
             display: inline-block;
@@ -86,27 +88,40 @@ if (!isset($_SESSION['customer'])) {
                             <td>PLATE NUMBER : </td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" name="vtype"></td>
-                            <td><input type="text" name="plate" class="form-control"></td>
+                            <td><input type="text" class="form-control" value="<?php echo $type ?>" name="vtype" readonly></td>
+                            <td><input type="text" value="<?php echo $plateno ?>" name="plateno" class="form-control" readonly></td>
                         </tr>
                         <tr>
                             <td>ENTERY DATE : </td>
                             <td>HOUR : </td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="date" class="form-control"></td>
-                            <td><input type="text" name="hour" class="form-control"></td>
+                            <td><input type="date" name="date" class="form-control"></td>
+                            <td><input type="number" min="1" name="hour" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="right"><input type="submit" name="submit" class="btn btn-primary" value="SUBMIT"></td>
+                            <?php
+                            if (isset($_GET['plateno'])) {
+                            ?>
+                                <td colspan="2" align="right"><input type="submit" name="submit" class="btn btn-primary" value="SUBMIT"></td>
+                            <?php } ?>
                         </tr>
                     </table>
                 </form>
             </center>
+        </div><br>
+        <div class="container">
+            <?php
+            if (!isset($_GET['plateno'])) {
+            ?>
+                <div class="alert alert-danger" role="alert">
+                    To fill this form, choose vehicle from <a href="vehiclelist.php" class="alert-link">list</a>
+                </div>
+            <?php } ?>
         </div>
     </div>
     <style>
-        td{
+        td {
             padding: 5px;
         }
     </style>

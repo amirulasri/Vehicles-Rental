@@ -86,12 +86,24 @@ if (!isset($_SESSION['customer'])) {
                     $querygetlistcar = mysqli_query($conn, "SELECT * FROM vehicles ORDER BY idvehicle DESC");
                     while ($getcardata = mysqli_fetch_array($querygetlistcar)) {
                     ?>
-                        <div class="carcatelog" onclick="carmodalopener()">
+                        <div class="carcatelog" onclick="carmodalopener(<?php echo $getcardata['idvehicle'] ?>)">
                             <div class="carcontent">
                                 <img class="carimg" src="<?php echo $getcardata['imagepath'] ?>" alt=""><br><br>
                                 <h5><?php echo $getcardata['model'] ?></h5>
                                 <div class="cardetail">
-                                    <p>Plate No: <?php echo $getcardata['plateno'] ?> <br> Color: <?php echo $getcardata['color']; ?> <br> Type: <?php echo $getcardata['type'] ?></p>
+                                    <p style="margin: 0;">Plate No: <?php echo $getcardata['plateno'] ?> <br> Color: <?php echo $getcardata['color']; ?> <br> Type: <?php echo $getcardata['type'] ?></p>
+                                    <?php
+                                    //CHECK IF VEHICLE IN USE
+                                    $plateno = $getcardata['plateno'];
+                                    $querycheckavailable = mysqli_query($conn, "SELECT COUNT(plateno) FROM booking WHERE plateno='$plateno'");
+                                    $bookcount = mysqli_fetch_array($querycheckavailable)[0];
+                                    if($bookcount == 0){
+                                        echo '<span class="badge rounded-pill bg-success">Available</span>';
+                                    }else{
+                                        $querygetlastrecord = mysqli_query($conn, "SELECT MAX(bookid) FROM booking WHERE plateno='$plateno'");
+                                        echo '<span class="badge rounded-pill bg-danger">In Use</span>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                             <div class="pricedisplayouter">
@@ -110,16 +122,10 @@ if (!isset($_SESSION['customer'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Car Name</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Vehicle Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <img class="carimgmodal" src="uploadedimg/car1.jpg" alt="">
-                    Details
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div id="carmodalcontent">
                 </div>
             </div>
         </div>
@@ -130,7 +136,20 @@ if (!isset($_SESSION['customer'])) {
             keyboard: false
         })
 
-        function carmodalopener() {
+        function carmodalopener(carid) {
+            if (carid.length == 0) {
+                document.getElementById("carmodalcontent").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("carmodalcontent").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajaxmodalcarselect.php?carid=" + carid, true);
+                xmlhttp.send();
+            }
             carmodalselctor.toggle();
         }
     </script>
