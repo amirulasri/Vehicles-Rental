@@ -2,8 +2,7 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    //echo "NO SESSION";
-    //die(header('location: login'));
+    die(header('location: login'));
 }
 ?>
 

@@ -2,8 +2,7 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    die("NO SESSION");
-    //die(header('location: login'));
+    die(header('location: login'));
 }
 $plateno = "";
 $type = "";
@@ -120,11 +119,11 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
                             <td><input type="text" value="<?php echo $plateno ?>" name="plateno" class="form-control" readonly></td>
                         </tr>
                         <tr>
-                            <td>ENTERY DATE : </td>
+                            <td>ENTERY DATE NOW: </td>
                             <td>HOUR : </td>
                         </tr>
                         <tr>
-                            <td><input type="date" id="datestart" value="<?php echo date('Y-m-d') ?>" name="datestart" class="form-control"></td>
+                            <td><input type="datetime-local" id="datestart" value="<?php echo date('Y-m-d').'T'.date('H:i') ?>" name="datestart" class="form-control" readonly></td>
                             <td><input type="number" onchange="getPrice()" oninput="getPrice()" id="hours" value="1" min="1" name="hour" class="form-control"></td>
                         </tr>
                         <tr>
@@ -170,10 +169,6 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
                 document.getElementById("pricedisplay").innerHTML = "Total: RM" + totalprice.toFixed(2);
             }
         }
-
-        var vehiclemodalselctor = new bootstrap.Modal(document.getElementById('vehiclemodalselctor'), {
-            keyboard: false
-        })
     </script>
 </body>
 

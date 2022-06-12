@@ -2,8 +2,7 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    die("NO SESSION");
-    //die(header('location: login'));
+    die(header('location: login'));
 }
 ?>
 
@@ -97,11 +96,25 @@ if (!isset($_SESSION['customer'])) {
                                     $plateno = $getvehicledata['plateno'];
                                     $querycheckavailable = mysqli_query($conn, "SELECT COUNT(plateno) FROM booking WHERE plateno='$plateno'");
                                     $bookcount = mysqli_fetch_array($querycheckavailable)[0];
+                                    $datetimenow = date('Y-m-d H:i:s');
                                     if($bookcount == 0){
                                         echo '<span class="badge rounded-pill bg-success">Available</span>';
                                     }else{
-                                        $querygetlastrecord = mysqli_query($conn, "SELECT MAX(bookid) FROM booking WHERE plateno='$plateno'");
-                                        echo '<span class="badge rounded-pill bg-danger">In Use</span>';
+                                        $querygetlastrecord = mysqli_query($conn, "SELECT MAX(idbook) FROM booking WHERE plateno='$plateno'");
+                                        $lastbookidforvehicle = mysqli_fetch_array($querygetlastrecord)[0];
+
+                                        $querylastbookdata = mysqli_query($conn, "SELECT * FROM booking WHERE idbook = '$lastbookidforvehicle'");
+                                        $getlastbookdata = mysqli_fetch_array($querylastbookdata);
+                                        $bookstarttime = $getlastbookdata['booktime']; //START DATE TIME
+                                        $hour = $getlastbookdata['hour'];
+                                        $bookenddate = date('Y-m-d H:i:s', strtotime($bookstarttime. " + $hour hours"));  //END DATE TIME
+
+                                        if(($datetimenow > $bookstarttime) && ($datetimenow < $bookenddate)){
+                                            echo '<span class="badge rounded-pill bg-danger">In Use</span>';
+                                        }else{
+                                            echo '<span class="badge rounded-pill bg-success">Available</span>';
+                                        }
+                                        
                                     }
                                     ?>
                                 </div>
@@ -135,7 +148,7 @@ if (!isset($_SESSION['customer'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">All Details</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Book History</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="vehiclereceiptcontent">
@@ -146,6 +159,10 @@ if (!isset($_SESSION['customer'])) {
 
     <script>
         var vehiclemodalselctor = new bootstrap.Modal(document.getElementById('vehiclemodalselctor'), {
+            keyboard: false
+        })
+
+        var vehiclemodalreceipt = new bootstrap.Modal(document.getElementById('vehiclemodalreceipt'), {
             keyboard: false
         })
 
@@ -189,10 +206,10 @@ if (!isset($_SESSION['customer'])) {
                         document.getElementById("vehiclereceiptcontent").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "ajaxmodalbookreceipt.php?idbook=" + idbook, true);
+                xmlhttp.open("GET", "ajaxmodalbookreceipt.php?book=" + idbook, true);
                 xmlhttp.send();
             }
-            vehiclemodalselctor.toggle();
+            vehiclemodalreceipt.toggle();
         }
     </script>
 

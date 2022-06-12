@@ -1,9 +1,8 @@
 <?php
 include('conn.php');
 session_start();
-if (!isset($_SESSION['customer'])) {
-    //echo "NO SESSION";
-    //die(header('location: login'));
+if (!isset($_SESSION['admin'])) {
+    die(header('location: login'));
 }
 ?>
 
@@ -63,16 +62,16 @@ if (!isset($_SESSION['customer'])) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item spacers">
-                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                                <a class="nav-link active" aria-current="page" href="#">Detail</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Info</a>
+                                <a class="nav-link" href="searching.php">Search</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link active" href="booking.php">Booking</a>
+                                <a class="nav-link" href="vehiclemanager.php">Manage Vehicle</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Log Out</a>
+                                <a class="nav-link" href="logout.php">Log Out</a>
                             </li>
 
                             <li class="nav-item">
@@ -98,35 +97,22 @@ if (!isset($_SESSION['customer'])) {
                             <td> HOUR </td>
                             <td> PRICE </td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        <?php
+                        $querybook = mysqli_query($conn, "SELECT * FROM `booking` INNER JOIN `student` ON booking.icstudent=student.icstudent INNER JOIN `vehicles` ON booking.plateno=vehicles.plateno");
+                        while ($getbookdata = mysqli_fetch_array($querybook)) {
+                            $price = $getbookdata['hour'] * $getbookdata['priceperhour'];
+                        ?>
+                            <tr>
+                                <td><?php echo $getbookdata['icstudent'] ?></td>
+                                <td><?php echo $getbookdata['phoneno'] ?></td>
+                                <td><?php echo $getbookdata['license'] ?></td>
+                                <td><?php echo $getbookdata['plateno'] ?></td>
+                                <td><?php echo $getbookdata['booktime'] ?></td>
+                                <td><?php echo $getbookdata['type'] ?></td>
+                                <td><?php echo $getbookdata['hour'] ?></td>
+                                <td>RM <?php echo $price ?></td>
+                            </tr>
+                        <?php } ?>
                     </table>
                 </div>
             </center>

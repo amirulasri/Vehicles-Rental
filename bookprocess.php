@@ -2,8 +2,7 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    die("NO SESSION");
-    //die(header('location: login'));
+    die(header('location: login'));
 }
 if(isset($_POST['booksubmit'])){
     $plateno = $_POST['plateno'];
@@ -16,7 +15,7 @@ if(isset($_POST['booksubmit'])){
     $getvehicledata = mysqli_fetch_array($querygetlistvehicle);
     $adminvehiclemanager = $getvehicledata['adminuser'];
 
-    $queryinsertbook = mysqli_query($conn, "INSERT INTO `booking`(`idbook`, `bookdate`, `hour`, `icstudent`, `plateno`, `adminuser`) VALUES (NULL,'$startdate','$hours','$icstudent','$plateno','$adminvehiclemanager')");
+    $queryinsertbook = mysqli_query($conn, "INSERT INTO `booking`(`idbook`, `booktime`, `hour`, `icstudent`, `plateno`, `adminuser`) VALUES (NULL,'$startdate','$hours','$icstudent','$plateno','$adminvehiclemanager')");
     if($queryinsertbook){
         $lastid = mysqli_insert_id($conn);
         header('location: vehiclelist.php?book='.$lastid);

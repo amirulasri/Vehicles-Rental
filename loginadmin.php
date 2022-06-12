@@ -31,7 +31,7 @@
         <div class="kotak-login2">
             <h2 style="margin: 0;">Admin</h2>
             <br>
-            <form id="mylogin" name="mylogin" method="post" action="">
+            <form id="mylogin" name="mylogin" method="post" action="loginadminprocess.php">
                 <div class="row">
                     <div class="col">
                         Username :

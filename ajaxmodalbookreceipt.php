@@ -2,22 +2,21 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['customer'])) {
-    die("NO SESSION");
-    //die(header('location: login'));
+    die(header('location: login'));
 }
-if (isset($_REQUEST['idbook'])) {
-    $idbook = $_REQUEST['idbook'];
+if (isset($_REQUEST['book'])) {
+    $idbook = $_REQUEST['book'];
     $querybook = mysqli_query($conn, "SELECT * FROM booking WHERE idbook = '$idbook'");
     $getbookdata = mysqli_fetch_array($querybook);
     $plateno = $getbookdata['plateno'];
-    $startdate = $getbookdata['bookdate'];
+    $startdate = $getbookdata['booktime'];
     $hours = $getbookdata['hour'];
-    
+
     $formatnewdate = new DateTime($startdate);
-    
+
     $querygetlistvehicle = mysqli_query($conn, "SELECT * FROM vehicles WHERE plateno='$plateno'");
     $getvehicledata = mysqli_fetch_array($querygetlistvehicle);
-    
+
     $model = $getvehicledata['model'];
     $color = $getvehicledata['color'];
     $type = $getvehicledata['type'];
@@ -123,7 +122,7 @@ if (isset($_REQUEST['idbook'])) {
         </table>
     </div>
     <div class="modal-footer">
-        <input type="submit" form="bookform" class="btn btn-primary" value="Book" />
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     </div>
 <?php
 }
