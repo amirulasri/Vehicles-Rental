@@ -75,7 +75,7 @@ if (!isset($_SESSION['admin'])) {
                                 <a class="nav-link active" href="#">Manage Vehicle</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="logout.php">Log Out</a>
+                                <a class="nav-link" href="logoutadmin.php">Log Out</a>
                             </li>
 
                             <li class="nav-item">
@@ -112,7 +112,7 @@ if (!isset($_SESSION['admin'])) {
                                 <td><?php echo $getvehicledata['color'] ?></td>
                                 <td><?php echo $getvehicledata['type'] ?></td>
                                 <td>RM <?php echo $getvehicledata['priceperhour'] ?></td>
-                                <td><button class="btn btn-primary" data-bs-toggle="modal" onclick="vehicleedit(<?php echo $getvehicledata['idvehicle'] ?>)" data-bs-target="#modaleditvehicle">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                <td><button class="btn btn-primary" data-bs-toggle="modal" onclick="vehicleedit(<?php echo $getvehicledata['idvehicle'] ?>)" data-bs-target="#modaleditvehicle">Edit</button> <a href="vehicledelete.php?idvehicle=<?php echo $getvehicledata['idvehicle'] ?>" onclick="return confirm('Confirm delete?')" class="btn btn-danger">Delete</a></td>
                             </tr>
                         <?php } ?>
                     </table>

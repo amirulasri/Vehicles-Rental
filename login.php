@@ -60,7 +60,7 @@
                 <div class="row">
                     <div class="col">
                         Password :
-                        <input type="text" name="pwd" class="form-control" placeholder="Enter Password" required>
+                        <input type="password" name="pwd" class="form-control" placeholder="Enter Password" required>
                     </div>
                 </div>
                 <div class="row" style="padding-bottom: 5px;">
@@ -70,10 +70,10 @@
                 </div>
                 <div class="row">
                     <div class="col" style="text-align: left;">
-                        <input type="button" class="btn btn-primary" value="ADMIN">
+                        <input type="button" onclick="window.location='loginadmin.php'" class="btn btn-primary" value="ADMIN">
                     </div>
                     <div class="col" style="text-align: right;">
-                        <input type="button" class="btn btn-primary" value="REGISTER">
+                        <input type="button" class="btn btn-primary" onclick="window.location='index.php'" value="REGISTER">
                     </div>
                 </div>
                 <br>

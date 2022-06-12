@@ -4,9 +4,14 @@ session_start();
 if (!isset($_SESSION['admin'])) {
     die(header('location: login'));
 }
-if (isset($_POST['submitvehicle'])) {
-
+if (isset($_POST['submitvehicle']) && isset($_SESSION['vehicletempidupdate']) && isset($_SESSION['vehicleimgpathtemp'])) {
+    $idvehicle = $_SESSION['vehicletempidupdate'];
+    $oldimagefile = $_SESSION['vehicleimgpathtemp'];
     $adminuser = $_SESSION['admin'];
+
+    //UNSET TEMP SESSION
+    unset($_SESSION['vehicletempidupdate']);
+    unset($_SESSION['vehicleimgpathtemp']);
 
     $vehiclemodel = $_POST['vehiclemodel'];
     $plateno = $_POST['plateno'];
@@ -24,27 +29,24 @@ if (isset($_POST['submitvehicle'])) {
         die("<script>alert('Extension not allowed, please choose a JPEG or PNG file.'); window.location='vehiclemanager.php'</script>");
     }
 
-    if ($file_size > 2097152) {
-        $errors[] = 'File size must be excately 2 MB';
-        die("<script>alert('Vehicle picture size must below 2MB'); window.location='vehiclemanager.php'</script>");
+    if ($file_size > 5097152) {
+        $errors[] = 'File size must be excately 5 MB';
+        die("<script>alert('Vehicle picture size must below 5MB'); window.location='vehiclemanager.php'</script>");
     }
 
     if (empty($errors) == true) {
-        //CONTINUE TO ADD CAR TO DATABASE
-        $queryaddcar = mysqli_query($conn, "INSERT INTO `vehicles`(`idvehicle`, `plateno`, `model`, `color`, `type`, `priceperhour`, `imagepath`, `adminuser`) VALUES (NULL,'$plateno','$vehiclemodel','$color','$type','$priceperhour','','$adminuser')");
+        //CONTINUE TO EDIT CAR TO DATABASE
+        $newimagename = $type.'-'.$idvehicle.'-'.$image;
+        $queryaddcar = mysqli_query($conn, "UPDATE `vehicles` SET `plateno`='$plateno', `model`='$vehiclemodel', `color`='$color', `type`='$type', `priceperhour`='$priceperhour', `imagepath`='uploadedimg/$newimagename' WHERE idvehicle='$idvehicle' AND adminuser='$adminuser'");
         if($queryaddcar){
-            $lastvehicleid = mysqli_insert_id($conn);
-            $newimagename = $type.'-'.$lastvehicleid.'-'.$image;
-            $queryupdateimagepath = mysqli_query($conn, "UPDATE `vehicles` SET imagepath = 'uploadedimg/$newimagename' WHERE idvehicle='$lastvehicleid' AND adminuser='$adminuser'");
+            unlink($oldimagefile);
             move_uploaded_file($temp_name, "uploadedimg/" . $newimagename);
             header('location: vehiclemanager.php');
         }else{
-            echo "<script>alert('Failed to insert vehicle data. MySQL ERROR CODE: ".mysqli_errno($conn)."'); window.location='vehiclemanager.php';</script>";
+            echo "<script>alert('Failed to update vehicle data. MySQL ERROR CODE: ".mysqli_errno($conn)."'); window.location='vehiclemanager.php';</script>";
         }
         
     } else {
         print_r($errors);
     }
-}else{
-    header('location: studentdetail.php');
 }

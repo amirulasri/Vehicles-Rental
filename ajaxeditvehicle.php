@@ -15,10 +15,15 @@ if (isset($_REQUEST['vehicleid'])) {
     $color = $getvehicledata['color'];
     $type = $getvehicledata['type'];
     $priceperhour = $getvehicledata['priceperhour'];
+    $oldimagevehicle = $getvehicledata['imagepath'];
+
+    //SET VEHICLE ID TEMPORARY FOR SECURE UPDATE
+    $_SESSION['vehicletempidupdate'] = $vehicleid;
+    $_SESSION['vehicleimgpathtemp'] = $oldimagevehicle;
 ?>
 
 <div class="modal-body">
-    <form id="editvehicleform" action="vehicleaddprocess.php" enctype="multipart/form-data" method="POST">
+    <form id="editvehicleform" action="vehicleeditprocess.php" enctype="multipart/form-data" method="POST">
         <div class="mb-3">
             <label for="vehiclepicture" class="form-label">Vehicle picture</label>
             <input class="form-control" type="file" id="vehiclepicture" name="vehiclepicture" required>

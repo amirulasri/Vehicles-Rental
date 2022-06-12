@@ -1,9 +1,6 @@
 <?php
 include('conn.php');
 session_start();
-if (!isset($_SESSION['customer'])) {
-    die(header('location: login'));
-}
 ?>
 
 <!doctype html>
@@ -33,7 +30,7 @@ if (!isset($_SESSION['customer'])) {
             padding-right: 40px;
         }
 
-        .navbar{
+        .navbar {
             height: auto;
         }
     </style>
@@ -57,13 +54,19 @@ if (!isset($_SESSION['customer'])) {
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Info</a>
+                                <a class="nav-link" href="vehiclelist.php">Info</a>
                             </li>
                             <li class="nav-item spacers">
                                 <a class="nav-link" href="booking.php">Booking</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="login.php">Login</a>
+                                <?php
+                                if (isset($_SESSION['customer'])) {
+                                ?>
+                                    <a class="nav-link" href="logout.php">Logout</a>
+                                <?php } else { ?>
+                                    <a class="nav-link" href="login.php">Login</a>
+                                <?php } ?>
                             </li>
 
                             <li class="nav-item">
@@ -113,12 +116,12 @@ if (!isset($_SESSION['customer'])) {
                             <div class="col">
                                 <label for="">License</label>
                                 <input type="license" name="studlicense" id="" class="form-control" required><br>
-                                
+
                             </div>
                             <div class="col">
                                 <label for="">Phone Number</label>
                                 <input type="phone" name="studphoneno" id="" class="form-control" required>
-                                
+
                             </div>
 
                         </div>
@@ -127,10 +130,10 @@ if (!isset($_SESSION['customer'])) {
                             <div class="col"><br>
                                 <input type="submit" name="submitregister" class="btn btn-primary" value="SUBMIT" />
                             </div>
-                    
+
                         </div>
                         <br>
-                        
+
                     </form>
                 </div>
             </div>

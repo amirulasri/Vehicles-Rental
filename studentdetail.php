@@ -71,7 +71,7 @@ if (!isset($_SESSION['admin'])) {
                                 <a class="nav-link" href="vehiclemanager.php">Manage Vehicle</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="logout.php">Log Out</a>
+                                <a class="nav-link" href="logoutadmin.php">Log Out</a>
                             </li>
 
                             <li class="nav-item">

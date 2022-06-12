@@ -52,14 +52,15 @@ if (isset($_REQUEST['vehicleid'])) {
         </table>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Chat Now</button>
         <?php
         //CHECK IF VEHICLE IN USE
         $querycheckavailable = mysqli_query($conn, "SELECT COUNT(plateno) FROM booking WHERE plateno='$plateno'");
         $bookcount = mysqli_fetch_array($querycheckavailable)[0];
         $datetimenow = date('Y-m-d H:i:s');
         if ($bookcount == 0) {
-            echo '<span class="badge rounded-pill bg-success">Available</span>';
+        ?>
+            <a href="booking.php?plateno=<?php echo $plateno ?>&type=<?php echo $type ?>" class="btn btn-primary" role="button">Book Now</a>
+            <?php
         } else {
             $querygetlastrecord = mysqli_query($conn, "SELECT MAX(idbook) FROM booking WHERE plateno='$plateno'");
             $lastbookidforvehicle = mysqli_fetch_array($querygetlastrecord)[0];
@@ -71,7 +72,7 @@ if (isset($_REQUEST['vehicleid'])) {
             $bookenddate = date('Y-m-d H:i:s', strtotime($bookstarttime . " + $hour hours"));  //END DATE TIME
 
             if (($datetimenow > $bookstarttime) && ($datetimenow < $bookenddate)) {
-        ?>
+            ?>
                 <button class="btn btn-primary" disabled>Not available</button>
             <?php
             } else {

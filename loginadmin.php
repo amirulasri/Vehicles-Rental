@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="col">
                         Password :
-                        <input type="text" name="pwd" class="form-control" placeholder="Enter Password">
+                        <input type="password" name="pwd" class="form-control" placeholder="Enter Password">
                     </div>
                 </div>
                 <div class="row" style="padding-bottom: 5px;">

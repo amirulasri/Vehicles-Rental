@@ -56,7 +56,7 @@ if (!isset($_SESSION['customer'])) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item spacers">
-                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                                <a class="nav-link" aria-current="page" href="index.php">Home</a>
                             </li>
                             <li class="nav-item spacers">
                                 <a class="nav-link active" href="#">Info</a>
@@ -65,7 +65,7 @@ if (!isset($_SESSION['customer'])) {
                                 <a class="nav-link" href="booking.php">Booking</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="login.php">Login</a>
+                                <a class="nav-link" href="logout.php">Logout</a>
                             </li>
 
                             <li class="nav-item">

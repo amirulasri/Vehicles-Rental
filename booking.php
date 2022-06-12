@@ -84,16 +84,16 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item spacers">
-                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                                <a class="nav-link" aria-current="page" href="index.php">Home</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Info</a>
+                                <a class="nav-link" href="vehiclelist.php">Info</a>
                             </li>
                             <li class="nav-item spacers">
                                 <a class="nav-link active" href="booking.php">Booking</a>
                             </li>
                             <li class="nav-item spacers">
-                                <a class="nav-link" href="#">Log Out</a>
+                                <a class="nav-link" href="logout.php">Logout</a>
                             </li>
 
                             <li class="nav-item">
@@ -123,7 +123,7 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
                             <td>HOUR : </td>
                         </tr>
                         <tr>
-                            <td><input type="datetime-local" id="datestart" value="<?php echo date('Y-m-d').'T'.date('H:i') ?>" name="datestart" class="form-control" readonly></td>
+                            <td><input type="datetime-local" id="datestart" value="<?php echo date('Y-m-d') . 'T' . date('H:i') ?>" name="datestart" class="form-control" readonly></td>
                             <td><input type="number" onchange="getPrice()" oninput="getPrice()" id="hours" value="1" min="1" name="hour" class="form-control"></td>
                         </tr>
                         <tr>
@@ -158,6 +158,7 @@ if (isset($_GET['plateno']) && isset($_GET['type'])) {
         let totalprice = <?php echo $priceperhour ?>;
         let hours = 1;
         let startDate = "<?php echo date('Y-m-d') ?>";
+
         function getPrice() {
             startDate = document.getElementById("datestart").value;
             hours = document.getElementById("hours").value;
