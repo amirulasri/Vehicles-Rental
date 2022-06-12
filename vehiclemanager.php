@@ -19,6 +19,10 @@ if (!isset($_SESSION['admin'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
     <style>
         a {
             text-decoration: none;
@@ -108,7 +112,7 @@ if (!isset($_SESSION['admin'])) {
                                 <td><?php echo $getvehicledata['color'] ?></td>
                                 <td><?php echo $getvehicledata['type'] ?></td>
                                 <td>RM <?php echo $getvehicledata['priceperhour'] ?></td>
-                                <td><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                <td><button class="btn btn-primary" data-bs-toggle="modal" onclick="vehicleedit(<?php echo $getvehicledata['idvehicle'] ?>)" data-bs-target="#modaleditvehicle">Edit</button> <button class="btn btn-danger">Delete</button></td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -166,10 +170,35 @@ if (!isset($_SESSION['admin'])) {
             </div>
         </div>
     </div>
-    <script src="jquery/jquery.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <!-- MODAL EDIT VEHICLE -->
+    <div class="modal fade" id="modaleditvehicle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="vehicleeditcontent"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function vehicleedit(vehicleid) {
+            if (vehicleid.length == 0) {
+                document.getElementById("vehicleeditcontent").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("vehicleeditcontent").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajaxeditvehicle.php?vehicleid=" + vehicleid, true);
+                xmlhttp.send();
+            }
+        }
+    </script>
 </body>
 
 </html>
